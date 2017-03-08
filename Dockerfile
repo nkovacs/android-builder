@@ -19,7 +19,7 @@ RUN chmod a+x /opt/tools/android-accept-licenses.sh
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
-RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --all --force --no-ui --filter platform-tools,build-tools-23.0.3,android-23,extra-android-support,extra-android-m2repository"]
+RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --all --force --no-ui --filter platform-tools,build-tools-25.0.2,build-tools-25.0.1,build-tools-25.0.0,build-tools-24.0.3,build-tools-24.0.2,build-tools-24.0.1,build-tools-24.0.0,build-tools-23.0.3,build-tools-23.0.2,build-tools-23.0.1,android-25,android-24,android-23,extra-android-support,extra-android-m2repository"]
 
 RUN mkdir -p /opt/workspace
 WORKDIR /opt/workspace
