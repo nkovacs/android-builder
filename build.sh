@@ -39,15 +39,15 @@ done <<EOF
 $allTheStuff
 EOF
 
-versionRE="[0-9.]+$"
+versionRE="[0-9.]+(-[0-9A-Za-z.-]+){0,1}$"
 sdkPrefix="platforms;android-"
 buildToolPrefix="build-tools;"
 googleApiPrefix="add-ons;addon-google_apis-google-"
 
 
-sdkVersions=$(echo "$available" | grep -E -o "$sdkPrefix[[:digit:].]+" | grep -E -o "$versionRE" | sort -n -r)
-buildTools=$(echo "$available" | grep -E -o "$buildToolPrefix[[:digit:].]+" | grep -E -o "$versionRE")
-googleApis=$(echo "$available" | grep -E -o "$googleApiPrefix[[:digit:].]+" | grep -E -o "$versionRE")
+sdkVersions=$(echo "$available" | grep -E -o "${sdkPrefix}${versionRE}" | grep -E -o "$versionRE" | sort -n -r)
+buildTools=$(echo "$available" | grep -E -o "${buildToolPrefix}${versionRE}" | grep -E -o "$versionRE")
+googleApis=$(echo "$available" | grep -E -o "${googleApiPrefix}${versionRE}" | grep -E -o "$versionRE")
 
 echo "Available SDK versions:"
 echo "$sdkVersions"
