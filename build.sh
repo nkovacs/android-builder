@@ -2,6 +2,7 @@
 
 # Minimum sdk version
 minSdkVersion=19
+minConstraintLayoutVersion=1.0.0
 
 . ./semver_bash/semver.sh
 
@@ -43,11 +44,13 @@ versionRE="[0-9.]+(-[0-9A-Za-z.-]+){0,1}$"
 sdkPrefix="platforms;android-"
 buildToolPrefix="build-tools;"
 googleApiPrefix="add-ons;addon-google_apis-google-"
+constraintLayoutPrefix="extras;m2repository;com;android;support;constraint;constraint-layout;"
 
 
 sdkVersions=$(echo "$available" | grep -E -o "${sdkPrefix}${versionRE}" | grep -E -o "$versionRE" | sort -n -r)
 buildTools=$(echo "$available" | grep -E -o "${buildToolPrefix}${versionRE}" | grep -E -o "$versionRE")
 googleApis=$(echo "$available" | grep -E -o "${googleApiPrefix}${versionRE}" | grep -E -o "$versionRE")
+constraintLayouts=$(echo "$available" | grep -E -o "${constraintLayoutPrefix}${versionRE}" | grep -E -o "$versionRE")
 
 echo "Available SDK versions:"
 echo "$sdkVersions"
@@ -57,6 +60,9 @@ echo "$buildTools"
 echo ""
 echo "Available google APIs:"
 echo "$googleApis"
+echo ""
+echo "Available constraint layout libraries"
+echo "$constraintLayouts"
 echo ""
 
 if [ "$TAG" = "$DEFAULT_TAG" ]; then
@@ -132,6 +138,15 @@ while read -r buildtoolVersion; do
 	fi
 done <<EOF
 $buildTools
+EOF
+
+while read -r constraintLayoutVersion; do
+	if semverLE "$minConstraintLayoutVersion" "$constraintLayoutVersion"; then
+		echo "    constraint layout $constraintLayoutVersion"
+        toinstall="$toinstall \"${constraintLayoutPrefix}${constraintLayoutVersion}\""
+	fi
+done <<EOF
+$constraintLayouts
 EOF
 
 # shellcheck disable=SC2028
