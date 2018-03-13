@@ -61,7 +61,7 @@ echo ""
 echo "Available google APIs:"
 echo "$googleApis"
 echo ""
-echo "Available constraint layout libraries"
+echo "Available constraint layout libraries:"
 echo "$constraintLayouts"
 echo ""
 
